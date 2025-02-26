@@ -1,6 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:millionaire_app/add_money_button.dart';
+import 'package:millionaire_app/bank_balance.dart';
+import 'package:millionaire_app/contain.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,9 +19,30 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   double balance = 0;
-  void addMoney() {
+
+  void addMoney() async {
     setState(() {
       balance += 500;
+    });
+    // Obtain shared preferences.
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    await prefs.setDouble('balance', balance);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    loadBalance();
+  }
+
+  void loadBalance() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    // If any user is opening the app for first time then the balance will be null
+    // SO this is a fall back value which can be given by ?? thing
+
+    setState(() {
+      balance = prefs.getDouble('balance') ?? 0;
     });
   }
 
@@ -26,74 +51,11 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       theme: ThemeData.dark(useMaterial3: true),
       home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text("Billionaire App"),
-        ),
-        body: Container(
-          padding: EdgeInsets.all(20),
-          color: Colors.blueGrey[700],
-          height: double.infinity,
-          width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // This one is to demonstrate how Expanded and flex works
-
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     Expanded(
-              //       flex: 1,
-              //       child: Container(
-              //         color: Colors.amber,
-              //         child: Text("0"),
-              //       ),
-              //     ),
-              //     Expanded(
-              //       // TO make this one more bigger
-              //       flex: 2,
-              //       child: Container(
-              //         color: Colors.red,
-              //         child: Text("1"),
-              //       ),
-              //     ),
-              //     Expanded(
-              //       flex: 1,
-              //       child: Container(
-              //         color: Colors.black,
-              //         child: Text("2"),
-              //       ),
-              //     )
-              //   ],
-              // ),
-
-              Expanded(
-                flex: 9,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Bank Balance: "),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text("$balance"),
-                  ],
-                ),
-              ),
-              Expanded(
-                  flex: 1,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red[400],
-                        minimumSize: Size(double.infinity, 0),
-                      ),
-                      onPressed: addMoney,
-                      child: Text("Add Money")))
-            ],
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text("Billionaire App"),
           ),
-        ),
-      ),
+          body: Contain(addMoney: addMoney, balance: balance)),
     );
   }
 }
