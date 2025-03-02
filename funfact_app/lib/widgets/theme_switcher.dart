@@ -39,7 +39,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
                     themeProvide.updateMode(darkMode: value);
 
                     //? we can remove this one as we don't need the thing cuz we are using th eglobal state
-                    setState(() {});
+                    // setState(() {});
                   }),
               SizedBox(
                 width: 10,

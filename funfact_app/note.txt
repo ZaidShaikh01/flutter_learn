@@ -7,3 +7,6 @@ It uses the content in the list.. It is similar to the listview Builder.
 3. We are using DIO package to make communication between api
 
 4. Using Switch widget to switch betweent the pages
+
+5. Created methods of provider so that it can br accessed as gloabal variable
+6. stored the value in the global variable
