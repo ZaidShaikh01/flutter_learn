@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:funfact_app/widgets/theme_switcher.dart';
 
 class SettingsScreens extends StatefulWidget {
   const SettingsScreens({super.key});
@@ -15,6 +16,8 @@ class _SettingsScreensState extends State<SettingsScreens> {
         centerTitle: true,
         title: Text("Settings"),
       ),
+      body: Column(children: [ThemeSwitcher(),
+      ElevatedButton(onPressed: (){}, child: Text("Update Global value"))],)
     );
   }
 }
