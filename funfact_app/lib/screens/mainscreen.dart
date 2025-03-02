@@ -29,7 +29,7 @@ class _MainscreenState extends State<Mainscreen> {
       setState(() {});
     } catch (e) {
       isLoading = false;
-      print(e);
+      
     }
   }
 
