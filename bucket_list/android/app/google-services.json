@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "156745385964",
+    "firebase_url": "https://bucketlist-8a6cd-default-rtdb.firebaseio.com",
+    "project_id": "bucketlist-8a6cd",
+    "storage_bucket": "bucketlist-8a6cd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156745385964:android:cd23b3c80e3f2381b362c9",
+        "android_client_info": {
+          "package_name": "com.example.bucket_list"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgGfoR_iDVY-IyKmdX6rtph5mz63ONRgA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

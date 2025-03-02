@@ -6,11 +6,13 @@ class Viewitem extends StatefulWidget {
   String title;
   String image;
   int index;
+  String details;
   Viewitem(
       {super.key,
       required this.title,
       required this.image,
-      required this.index});
+      required this.index,
+      required this.details});
 
   @override
   State<Viewitem> createState() => _ViewitemState();
@@ -107,9 +109,22 @@ class _ViewitemState extends State<Viewitem> {
               //child: Image(image: NetworkImage("${widget.image}")),
               // or use decoration
               decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
                       fit: BoxFit.cover, image: NetworkImage(widget.image))),
             ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              height: 470,
+              width: 390,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.blue[100],
+              ),
+              child: Text(widget.details),
+            )
           ],
         ),
       ),
