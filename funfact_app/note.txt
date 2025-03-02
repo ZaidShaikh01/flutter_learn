@@ -1,0 +1,7 @@
+Things I've learnt from this project
+
+1. PageView Builder... Can be used to add scroll left or scroll like tiktok Things
+It uses the content in the list.. It is similar to the listview Builder.
+
+2. Then we are saving the content in git repo so to make it a JSon file and use API
+3. We are using DIO package to make communication between api
