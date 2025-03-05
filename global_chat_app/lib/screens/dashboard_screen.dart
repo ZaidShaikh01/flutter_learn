@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:global_chat_app/screens/splash_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -22,6 +23,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
         children: [
           Text("Welcome, "),
           Text((user?.email ?? "").toString()),
+          ElevatedButton(
+              onPressed: () async {
+                // This will sign out the user
+                await FirebaseAuth.instance.signOut();
+
+                Navigator.pushAndRemoveUntil(context,
+                    MaterialPageRoute(builder: (context) {
+                  return SplashScreen();
+                }), (route) {
+                  return false;
+                });
+                
+              },
+              child: Text("Sign out!"))
         ],
       ),
     );
