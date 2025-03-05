@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:global_chat_app/screens/splash_screen.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -22,8 +23,12 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(useMaterial3: true),
-      home: Scaffold(),
+      theme: ThemeData(
+        fontFamily: "Poppins",
+        brightness: Brightness.light,
+        useMaterial3: true,
+      ),
+      home: SplashScreen(),
     );
   }
 }

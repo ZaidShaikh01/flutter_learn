@@ -1,0 +1,3 @@
+Using Form widget
+Adding a splash screen
+Importing fireabase auth package to install flutter auth
