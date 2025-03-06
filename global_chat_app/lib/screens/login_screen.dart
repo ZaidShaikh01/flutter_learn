@@ -23,10 +23,10 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("Login Page"),
-      ),
+      // appBar: AppBar(
+      //   centerTitle: true,
+      //   title: Text("Login Page"),
+      // ),
       // using the form widget
       body: Form(
         // Setting yp the key for form
@@ -36,6 +36,12 @@ class LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              
+
+              SizedBox(
+                  height: 100,
+                  width: 100,
+                  child: Image.asset("assets/images/logo.png")),
               TextFormField(
                 controller: email,
                 validator: (value) {
@@ -69,17 +75,27 @@ class LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(height: 20),
-              ElevatedButton(
-                  onPressed: () {
-                    if (userForm.currentState!.validate()) {
-                      // Creating an account
-                      LoginController.login(
-                          context: context,
-                          password: password.text.toString(),
-                          email: email.text.toString());
-                    }
-                  },
-                  child: Text("Login")),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: Size(0, 50),
+                            foregroundColor: Colors.white,
+                            backgroundColor: Colors.deepPurpleAccent),
+                        onPressed: () {
+                          if (userForm.currentState!.validate()) {
+                            // Creating an account
+                            LoginController.login(
+                                context: context,
+                                password: password.text.toString(),
+                                email: email.text.toString());
+                          }
+                        },
+                        child: Text("Login")),
+                  ),
+                ],
+              ),
               SizedBox(height: 20),
               Row(
                 children: [

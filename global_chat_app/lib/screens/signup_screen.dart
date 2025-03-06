@@ -23,7 +23,7 @@ class SignupScreenState extends State<SignupScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Signup Page"),
+        title: Text(""),
       ),
       // using the form widget
       body: Form(
@@ -34,6 +34,10 @@ class SignupScreenState extends State<SignupScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(
+                  height: 100,
+                  width: 100,
+                  child: Image.asset("assets/images/logo.png")),
               TextFormField(
                 controller: email,
                 validator: (value) {
@@ -67,17 +71,27 @@ class SignupScreenState extends State<SignupScreen> {
                 ),
               ),
               SizedBox(height: 20),
-              ElevatedButton(
-                  onPressed: () {
-                    if (userForm.currentState!.validate()) {
-                      // Creating an account
-                      SignupController.createAccount(
-                          context: context,
-                          password: password.text.toString(),
-                          email: email.text.toString());
-                    }
-                  },
-                  child: Text("Create Account!")),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: Size(0, 50),
+                            foregroundColor: Colors.white,
+                            backgroundColor: Colors.deepPurpleAccent),
+                        onPressed: () {
+                          if (userForm.currentState!.validate()) {
+                            // Creating an account
+                            SignupController.createAccount(
+                                context: context,
+                                password: password.text.toString(),
+                                email: email.text.toString());
+                          }
+                        },
+                        child: Text("Create Account!")),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
