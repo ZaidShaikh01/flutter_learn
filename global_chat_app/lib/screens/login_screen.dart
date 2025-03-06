@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:global_chat_app/controllers/login_controller.dart';
 import 'package:global_chat_app/controllers/signup_controller.dart';
 import 'package:global_chat_app/screens/dashboard_screen.dart';
+import 'package:global_chat_app/screens/signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -79,6 +80,28 @@ class LoginScreenState extends State<LoginScreen> {
                     }
                   },
                   child: Text("Login")),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Text("Don't have an account?"),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return SignupScreen();
+                      }));
+                    },
+                    child: Text(
+                      "Signup here!",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.blue),
+                    ),
+                  )
+                ],
+              )
             ],
           ),
         ),
