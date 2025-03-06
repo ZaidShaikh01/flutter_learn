@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:global_chat_app/controllers/signup_controller.dart';
 import 'package:global_chat_app/screens/dashboard_screen.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -16,27 +17,6 @@ class SignupScreenState extends State<SignupScreen> {
   TextEditingController password = TextEditingController();
 
   var userForm = GlobalKey<FormState>();
-
-  Future<void> createAccount() async {
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email.text.toString(), password: password.text.toString());
-      print("Account created successfully!!");
-      Navigator.pushAndRemoveUntil(context,
-          MaterialPageRoute(builder: (context) {
-        return DashboardScreen();
-      }), (route) {
-        return false;
-      });
-    } catch (e) {
-      // Snakbar
-      SnackBar messageSnakBar = SnackBar(
-          backgroundColor: Colors.red[200], content: Text(e.toString()));
-
-      ScaffoldMessenger.of(context).showSnackBar(messageSnakBar);
-      print(e);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +71,10 @@ class SignupScreenState extends State<SignupScreen> {
                   onPressed: () {
                     if (userForm.currentState!.validate()) {
                       // Creating an account
-                      createAccount();
+                      SignupController.createAccount(
+                          context: context,
+                          password: password.text.toString(),
+                          email: email.text.toString());
                     }
                   },
                   child: Text("Create Account!")),

@@ -1,3 +1,7 @@
 Using Form widget
 Adding a splash screen
 Importing fireabase auth package to install flutter auth
+
+Create different folders for logic and UI
+
+Create conditional forwarding
