@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:global_chat_app/providers/userProvider.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -11,40 +13,28 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  // Getting the data of current user
-  var db = FirebaseFirestore.instance;
-  var authUser = FirebaseAuth.instance.currentUser;
+ 
   // We are getting map data
 
   Map<String, dynamic>? userData = {};
 
-  // This method will get the data from the firebase
-  void getData() {
-    db.collection("users").doc(authUser!.uid).get().then((dataSnapShot) {
-      userData = dataSnapShot.data();
-      setState(() {});
-    });
-  }
 
-  // This method will get use the data when the widget is created
-  @override
-  void initState() {
-    // TODO: implement initState
-    getData();
-    super.initState();
-  }
+
 
   @override
   Widget build(BuildContext context) {
+    // We are bringing the UserProvide provider in this screen
+
+    var userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text("Profile"),
       ),
       body: Column(children: [
-        Text(userData?["name"] ?? ""),
-        Text(userData?["country"] ?? ""),
-        Text(userData?["email"] ?? ""),
+        Text(userProvider.userName),
+        Text(userProvider.userId),
+        Text(userProvider.userEmail),
       ]),
     );
   }

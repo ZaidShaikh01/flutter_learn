@@ -18,7 +18,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Gloabal Chat"),
+        title: Text("Global Chat"),
       ),
       drawer: Drawer(
         child: Container(

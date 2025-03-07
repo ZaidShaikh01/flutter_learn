@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:global_chat_app/providers/userProvider.dart';
 import 'package:global_chat_app/screens/dashboard_screen.dart';
 import 'package:global_chat_app/screens/login_screen.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -28,6 +30,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void openDashBoard() {
+    // Calling the provider when the app is started
+    Provider.of<UserProvider>(context, listen: false).getUserDetails();
+
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
       return DashboardScreen();
     }));

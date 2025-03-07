@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:global_chat_app/providers/userProvider.dart';
 import 'package:global_chat_app/screens/splash_screen.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -8,7 +10,11 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => UserProvider(),
+    // This special widget helps to notify and create the global variable, Just like set state
+    
+    child: MyApp()));
 }
 
 class MyApp extends StatefulWidget {

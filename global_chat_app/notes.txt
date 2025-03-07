@@ -6,3 +6,6 @@
 6.Decorate the app
 
 7. Add single child scroll view widget to allow scroll functionality
+
+8. Added Profile section there we are using both Auth and Store instance to access the data ....
+We are first getting the data and then storing that data into the map. Then using it when the profile screen will be screen
