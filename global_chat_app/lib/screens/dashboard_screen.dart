@@ -34,9 +34,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 }), (route) {
                   return false;
                 });
-                
               },
-              child: Text("Sign out!"))
+              child: Text("Log out"))
         ],
       ),
     );

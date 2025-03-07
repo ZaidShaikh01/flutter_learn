@@ -1,7 +1,8 @@
-Using Form widget
-Adding a splash screen
-Importing fireabase auth package to install flutter auth
+1.Using Form widget
+2.Adding a splash screen
+3.Importing fireabase auth package to install flutter auth
+4.Create different folders for logic and UI
+5.Create conditional forwarding
+6.Decorate the app
 
-Create different folders for logic and UI
-
-Create conditional forwarding
+7. Add single child scroll view widget to allow scroll functionality

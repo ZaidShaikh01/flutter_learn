@@ -16,6 +16,9 @@ class SignupScreenState extends State<SignupScreen> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
+  TextEditingController name = TextEditingController();
+  TextEditingController country = TextEditingController();
+
   var userForm = GlobalKey<FormState>();
 
   @override
@@ -26,73 +29,105 @@ class SignupScreenState extends State<SignupScreen> {
         title: Text(""),
       ),
       // using the form widget
-      body: Form(
-        // Setting yp the key for form
-        key: userForm,
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                  height: 100,
-                  width: 100,
-                  child: Image.asset("assets/images/logo.png")),
-              TextFormField(
-                controller: email,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter your email";
-                  }
-                  return null;
-                },
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Email: ",
-                ),
-              ),
-              SizedBox(height: 23),
-              // Password field
-              TextFormField(
-                controller: password,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter your password";
-                  }
-                  return null;
-                },
-                // TO hide the texts
-                obscureText: true,
-                enableSuggestions: false,
-                autocorrect: false,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Password",
-                ),
-              ),
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            minimumSize: Size(0, 50),
-                            foregroundColor: Colors.white,
-                            backgroundColor: Colors.deepPurpleAccent),
-                        onPressed: () {
-                          if (userForm.currentState!.validate()) {
-                            // Creating an account
-                            SignupController.createAccount(
-                                context: context,
-                                password: password.text.toString(),
-                                email: email.text.toString());
-                          }
-                        },
-                        child: Text("Create Account!")),
+      body: SingleChildScrollView(
+        child: Form(
+          // Setting yp the key for form
+          key: userForm,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: Image.asset("assets/images/logo.png")),
+                TextFormField(
+                  controller: email,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter your email";
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Email",
                   ),
-                ],
-              ),
-            ],
+                ),
+                SizedBox(height: 23),
+                // Password field
+                TextFormField(
+                  controller: password,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter your password";
+                    }
+                    return null;
+                  },
+                  // TO hide the texts
+                  obscureText: true,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Password",
+                  ),
+                ),
+                SizedBox(height: 20),
+                TextFormField(
+                  controller: name,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter your name";
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Name ",
+                  ),
+                ),
+                SizedBox(height: 20),
+                TextFormField(
+                  controller: country,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter your country";
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Country ",
+                  ),
+                ),
+                SizedBox(height: 20),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              minimumSize: Size(0, 50),
+                              foregroundColor: Colors.white,
+                              backgroundColor: Colors.deepPurpleAccent),
+                          onPressed: () {
+                            if (userForm.currentState!.validate()) {
+                              // Creating an account
+                              SignupController.createAccount(
+                                  context: context,
+                                  password: password.text.toString(),
+                                  email: email.text.toString(),
+                                  name: name.text.toString(),
+                                  country: country.text.toString());
+                            }
+                          },
+                          child: Text("Create Account!")),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
