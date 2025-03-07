@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:global_chat_app/providers/userProvider.dart';
 import 'package:global_chat_app/screens/profile_screen.dart';
 import 'package:global_chat_app/screens/splash_screen.dart';
+import 'package:provider/provider.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -14,6 +16,10 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   var user = FirebaseAuth.instance.currentUser;
   var db = FirebaseFirestore.instance;
+
+  // We need a key to access the drawer through circular icon
+
+  var scaffoldKey = GlobalKey<ScaffoldState>();
 
   List<Map<String, dynamic>> chatRoomsList = [];
 
@@ -37,10 +43,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Getting the provider
+    var userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
+        key: scaffoldKey,
         appBar: AppBar(
           centerTitle: true,
           title: Text("Global Chat"),
+          leading: InkWell(
+            onTap: () {
+              scaffoldKey.currentState!.openDrawer();
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: CircleAvatar(
+                radius: 20,
+                child: Text(userProvider.userName[0]),
+              ),
+            ),
+          ),
         ),
         drawer: Drawer(
           child: Container(
@@ -48,6 +69,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
               children: [
                 SizedBox(
                   height: 50,
+                ),
+                ListTile(
+                  // The log out button uses firebase.intance.auth to log out
+                  // We are directly navigating to splash screen
+                  onTap: () async {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return ProfileScreen();
+                      }),
+                    );
+                  },
+                  leading: CircleAvatar(
+                    child: Text(userProvider.userName[0]),
+                  ),
+                  title: Text(
+                    userProvider.userName,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text(userProvider.userEmail),
                 ),
                 ListTile(
                   // The log out button uses firebase.intance.auth to log out
@@ -89,7 +130,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
               String chatroomDesc = chatRoomsList[index]["desc"] ?? "";
               return ListTile(
                 leading: CircleAvatar(
-                  child: Text(chatroomName.substring(0, 1)),
+                  backgroundColor: Colors.blueGrey[900],
+                  child: Text(
+                    chatroomName.substring(0, 1),
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
                 title: Text(chatroomName),
                 subtitle: Text(chatroomDesc),

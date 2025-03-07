@@ -13,13 +13,9 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
- 
   // We are getting map data
 
   Map<String, dynamic>? userData = {};
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +25,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Profile"),
+        title: Text(""),
       ),
-      body: Column(children: [
-        Text(userProvider.userName),
-        Text(userProvider.userId),
-        Text(userProvider.userEmail),
-      ]),
+      body: Container(
+        width: double.infinity,
+        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+          CircleAvatar(
+            radius: 50,
+            child: Text(userProvider.userName[0]),
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Text(
+            userProvider.userName,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Text(userProvider.userEmail),
+
+          // Allowing user to change the name
+
+          ElevatedButton(
+            onPressed: (){},
+            child: Text("Edit Profile"),
+          )
+        ]),
+      ),
     );
   }
 }
