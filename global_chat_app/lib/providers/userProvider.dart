@@ -14,6 +14,7 @@ class UserProvider extends ChangeNotifier {
 
   // This method will get the data from the firebase
   void getUserDetails() {
+    var authUser = FirebaseAuth.instance.currentUser;
     db.collection("users").doc(authUser!.uid).get().then((dataSnapShot) {
       userName = dataSnapShot.data()?["name"] ?? "";
       userEmail = dataSnapShot.data()?["email"] ?? "";

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:global_chat_app/screens/dashboard_screen.dart';
+import 'package:global_chat_app/screens/splash_screen.dart';
 
 class SignupController {
   static Future<void> createAccount(
@@ -38,7 +39,7 @@ class SignupController {
       print("Account created successfully!!");
       Navigator.pushAndRemoveUntil(context,
           MaterialPageRoute(builder: (context) {
-        return DashboardScreen();
+        return SplashScreen();
       }), (route) {
         return false;
       });

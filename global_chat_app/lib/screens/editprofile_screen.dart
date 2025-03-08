@@ -36,6 +36,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.initState();
   }
 
+  /// Updates the user's name in the database and reloads the user's details.
+  ///
+  /// This function is called when the user clicks the "Update" button in the
+  /// Edit Profile screen. It updates the user's name in the database and reloads
+  /// the user's details by calling the `getUserDetails()` function of the
+  /// `UserProvider` class. Finally, it pops the Edit Profile screen from the
+  /// navigator.
   void updateData() {
     // Data to be update
 

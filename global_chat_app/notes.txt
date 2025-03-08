@@ -18,4 +18,4 @@ We are first getting the data and then storing that data into the map. Then usin
  Tehy we have used init data to access data
 
  11. Now I've edited the profile screens
- 
+ 12. Always open the app in splash screen For updating the data in the firebase there is a method know as Update
