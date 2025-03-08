@@ -19,3 +19,12 @@ We are first getting the data and then storing that data into the map. Then usin
 
  11. Now I've edited the profile screens
  12. Always open the app in splash screen For updating the data in the firebase there is a method know as Update
+
+ 13. Created a chat room page and we have got the Firebase Ids and values of the table (chatroom) to query the data in it
+
+ 14. Context when outside build widget needs listen to be set as false
+
+ 15. Now created the send message function which will send the message. we are basically creating a new column in the database
+
+
+ 16. We are sending the data in another table and then retriving from it... Like User is different table and Messages is different table... User are making changes in the message table and we are retriving that data using stream builder widget
