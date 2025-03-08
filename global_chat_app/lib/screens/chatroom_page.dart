@@ -64,11 +64,19 @@ class _ChatroomPageState extends State<ChatroomPage> {
                     // This is the source of the stream we are ordering it by the timestamp
                     stream: db
                         .collection("messages")
+                        .where("chatroom_id",
+                            isEqualTo: widget
+                                .chatroomId) // just listning to those messages that matches with current id
                         .orderBy("timestamp", descending: true)
                         .snapshots(),
 
                     // This is the builder of the stream
                     builder: (context, snapshot) {
+                      // Handling the error of strem
+                      if (snapshot.hasError) {
+                        return Center(child: Text("Some error has occured"));
+                      }
+
                       // SnapShot stores all the realtime data
 
                       var allMessages = snapshot.data?.docs ?? [];

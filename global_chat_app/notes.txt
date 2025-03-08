@@ -28,3 +28,6 @@ We are first getting the data and then storing that data into the map. Then usin
 
 
  16. We are sending the data in another table and then retriving from it... Like User is different table and Messages is different table... User are making changes in the message table and we are retriving that data using stream builder widget
+
+ 17. Now conditionally rendering the messagge in the specific chatroom you might get an error so to fix that
+     Go and create index in the firebase by clicking the link in the debug console 
