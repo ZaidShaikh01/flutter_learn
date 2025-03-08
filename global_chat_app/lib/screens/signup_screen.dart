@@ -19,7 +19,12 @@ class SignupScreenState extends State<SignupScreen> {
   TextEditingController name = TextEditingController();
   TextEditingController country = TextEditingController();
 
+  // Addig the user form key
+
   var userForm = GlobalKey<FormState>();
+
+  // Loading indicator
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -111,18 +116,31 @@ class SignupScreenState extends State<SignupScreen> {
                               minimumSize: Size(0, 50),
                               foregroundColor: Colors.white,
                               backgroundColor: Colors.deepPurpleAccent),
-                          onPressed: () {
+                          onPressed: () async {
+                            // When the button is pressed the circular indicator will be shown
+                            isLoading = true;
+                            setState(() {});
                             if (userForm.currentState!.validate()) {
                               // Creating an account
-                              SignupController.createAccount(
+                              await SignupController.createAccount(
                                   context: context,
                                   password: password.text.toString(),
                                   email: email.text.toString(),
                                   name: name.text.toString(),
                                   country: country.text.toString());
+                              // Once the account is created, the loading indicator will be removed
+                              isLoading = false;
+                              setState(() {});
                             }
                           },
-                          child: Text("Create Account!")),
+                          child: isLoading
+                              ? Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : Text("Create Account!")),
                     ),
                   ],
                 ),
