@@ -16,3 +16,6 @@ We are first getting the data and then storing that data into the map. Then usin
  10. In This step I've added a Dashboard list chats.. This chats are constant and we have first created them in firebase console...
  We have created two chatrooms .. Flutte dev and node js dev .. This chat room are now loaded in our dashboard screen and they are loaded as list... And not as map
  Tehy we have used init data to access data
+
+ 11. Now I've edited the profile screens
+ 

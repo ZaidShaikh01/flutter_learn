@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:global_chat_app/providers/userProvider.dart';
+import 'package:global_chat_app/screens/editprofile_screen.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -49,7 +50,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
           // Allowing user to change the name
 
           ElevatedButton(
-            onPressed: (){},
+            onPressed: () {
+              // Opening the edit profile screen
+
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return EditProfileScreen();
+              }));
+            },
             child: Text("Edit Profile"),
           )
         ]),
