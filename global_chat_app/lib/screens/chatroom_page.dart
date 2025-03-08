@@ -32,11 +32,12 @@ class _ChatroomPageState extends State<ChatroomPage> {
     Map<String, dynamic> messageToSend = {
       "text": sendText.text,
       "sender_name": Provider.of<UserProvider>(context, listen: false).userName,
+      "sender_id": Provider.of<UserProvider>(context, listen: false).userId,
       "chatroom_id": widget.chatroomId,
       // This is the time of the server
       "timestamp": FieldValue.serverTimestamp(),
     };
-
+    sendText.text = "";
     try {
       await db.collection("messages").add(messageToSend);
     } catch (e) {
@@ -44,7 +45,51 @@ class _ChatroomPageState extends State<ChatroomPage> {
     }
 
     // Clearing the text field once message has been sent
-    sendText.text = "";
+  }
+
+  Widget singleChatItem(
+      {required String sender_id,
+      required String sender_name,
+      required String text}) {
+    return Column(
+      // This is to check whether the message is sent by the user or not
+      // Is sent by user will appear at right or left
+      crossAxisAlignment:
+          sender_id == Provider.of<UserProvider>(context, listen: false).userId
+              ? CrossAxisAlignment.end
+              : CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 7, right: 7),
+          child: Text(
+            sender_name,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: sender_id ==
+                    Provider.of<UserProvider>(context, listen: false).userId
+                ? Colors.grey[300]
+                : Colors.blueGrey[900],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(14.0),
+            child: Text(text,
+                style: TextStyle(
+                    color: sender_id ==
+                            Provider.of<UserProvider>(context, listen: false)
+                                .userId
+                        ? Colors.black
+                        : Colors.white)),
+          ),
+        ),
+        SizedBox(
+          height: 8,
+        ),
+      ],
+    );
   }
 
   @override
@@ -80,6 +125,11 @@ class _ChatroomPageState extends State<ChatroomPage> {
                       // SnapShot stores all the realtime data
 
                       var allMessages = snapshot.data?.docs ?? [];
+
+                      // Showing that there are no messages here
+                      if (allMessages.isEmpty) {
+                        return Center(child: Text("No messages yet"));
+                      }
                       return ListView.builder(
                         // This starts building from bottom
                         reverse: true,
@@ -87,19 +137,10 @@ class _ChatroomPageState extends State<ChatroomPage> {
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "${allMessages[index]['sender_name']}",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                Text("${allMessages[index]['text']}"),
-                                SizedBox(
-                                  height: 8,
-                                ),
-                              ],
-                            ),
+                            child: singleChatItem(
+                                sender_name: allMessages[index]["sender_name"],
+                                text: allMessages[index]["text"],
+                                sender_id: allMessages[index]["sender_id"]),
                           );
                         },
                       );
