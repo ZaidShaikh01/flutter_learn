@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Student Management System</h2>
+        <input type="text" id="name" placeholder="Enter Student Name">
+        <input type="number" id="age" placeholder="Enter Age">
+        <button onclick="addStudent()">Add Student</button>
+        <p class="error" id="error"></p>
+        <table>
+            <thead>
+                <tr>
+                    <th onclick="sortTable(0)">Name</th>
+                    <th onclick="sortTable(1)">Age</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="student-list"></tbody>
+        </table>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
