@@ -19,18 +19,61 @@ class CurrencyConvertor extends StatelessWidget {
               style: TextStyle(
                   fontSize: 55,
                   fontWeight: FontWeight.bold,
-                  color: Colors.blueGrey),
+                  color: Colors.blueGrey[800]),
             ),
-            TextField(
-              style: TextStyle(
-                color: Colors.white,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+                decoration: InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.monetization_on,
+                  ),
+                  prefixIconColor: Colors.white,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 2,
+                      style: BorderStyle.solid,
+                    ),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 2,
+                      style: BorderStyle.solid,
+                    ),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  hintText: 'Please enter an amount: ',
+                  labelStyle: TextStyle(
+                    color: Colors.white60,
+                  ),
+                ),
               ),
-              decoration: InputDecoration(
-                  label: Text(
-                "Please enter the amount in INR: ",
-                style: TextStyle(color: Colors.amber),
-              )),
-            )
+            ),
+
+            // Rounded button
+            // Appears like a text
+            // Add a text button with text "Convert"
+            ElevatedButton(
+              onPressed: () {},
+              style: TextButton.styleFrom(
+                  minimumSize: Size(double.infinity, 50),
+                  backgroundColor: Colors.blueGrey[800],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  elevation: 12),
+              child: Text(
+                "Convert",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
           ],
         ),
       ),
