@@ -1,0 +1,7 @@
+Card --> Used to create cards
+
+BackDropFilter --> Merges the first widget with background... like gives a nice fade
+
+
+ClipRect --> Give us properties to use border radius
+Align --> give us properites of alignment ... Can be used to wrap around things
