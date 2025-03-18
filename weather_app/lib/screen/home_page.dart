@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   // humidity & pressure is also needed
   //int pressure = 0;
   //int humidity = 0;
-  Future<Map<String,dynamic>> getCurrentWeather() async {
+  Future<Map<String, dynamic>> getCurrentWeather() async {
     // Might get an issue so we need to catch it ... Always catch when you are dealing with API or internate request in ususal
     //isLoading = true;
     try {
@@ -106,9 +106,15 @@ class _HomePageState extends State<HomePage> {
           // Now we have to get the data
           final data = snapshot.data!;
 
-          final currentTemp = data['list'][0]['main']['temp'];
+          final currentData = data['list'][0];
+          final currentTemp = currentData['main']['temp'];
+          final currentSky = currentData['weather'][0]['main'];
 
-          
+          // Now getting the data of the additional information
+          final humidity = currentData['main']['humidity'];
+          final pressure = currentData['main']['pressure'];
+          final windSpeed = currentData['wind']['speed'];
+
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -141,14 +147,16 @@ class _HomePageState extends State<HomePage> {
                                 height: 16,
                               ),
                               Icon(
-                                Icons.cloud,
+                                currentSky == 'Clouds' || currentSky == 'Rain'
+                                    ? Icons.cloud
+                                    : Icons.sunny,
                                 size: 64,
                               ),
                               const SizedBox(
                                 height: 16,
                               ),
                               Text(
-                                'Rain',
+                                currentSky,
                                 style: const TextStyle(
                                   fontSize: 20,
                                 ),
@@ -167,7 +175,7 @@ class _HomePageState extends State<HomePage> {
 
                 // Weather forcast cards
                 const Text(
-                  "Weather Forecast",
+                  "Hourly Forecast",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -178,35 +186,23 @@ class _HomePageState extends State<HomePage> {
                   height: 8,
                 ),
 
-                const SingleChildScrollView(
+                SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      HourlyForeCasteItem(
-                        icon: Icons.sunny,
-                        time: '09:00',
-                        tempreture: '301.17',
-                      ),
-                      HourlyForeCasteItem(
-                        icon: Icons.cloud,
-                        time: '10:00',
-                        tempreture: '300.17',
-                      ),
-                      HourlyForeCasteItem(
-                        icon: Icons.sunny,
-                        time: '11:00',
-                        tempreture: '300.12',
-                      ),
-                      HourlyForeCasteItem(
-                        icon: Icons.cloud,
-                        time: '12:00',
-                        tempreture: '302.18',
-                      ),
-                      HourlyForeCasteItem(
-                        icon: Icons.cloud,
-                        time: '13:00',
-                        tempreture: '303.13',
-                      ),
+                      // we are iterating to show the item, Every Item is being created together at the same time
+                      for (int i = 1; i < 6; i++)
+                        HourlyForeCasteItem(
+                          time: data['list'][i]['dt_txt'].toString(),
+                          tempreture:
+                              data['list'][i]['main']['temp'].toString(),
+                          icon: (data['list'][i]['weather'][0]['main'] ==
+                                      'Clouds' ||
+                                  data['list'][i]['weather'][0]['main'] ==
+                                      'Rain')
+                              ? Icons.cloud
+                              : Icons.sunny,
+                        ),
                     ],
                   ),
                 ),
@@ -237,19 +233,19 @@ class _HomePageState extends State<HomePage> {
                     AdditionalInfoItem(
                       icon: Icons.water_drop,
                       label: 'Humidity',
-                      value: '23',
+                      value: '$humidity',
                     ),
                     // WindSpeed
                     AdditionalInfoItem(
                       icon: Icons.air,
                       label: 'Wind Speed',
-                      value: '233',
+                      value: '$windSpeed',
                     ),
                     // Pressure
                     AdditionalInfoItem(
                       icon: Icons.beach_access,
                       label: 'Pressure',
-                      value: '234',
+                      value: '$pressure',
                     ),
                   ],
                 )
