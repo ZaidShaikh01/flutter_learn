@@ -16,6 +16,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late Future<Map<String, dynamic>> futureWeather;
+
   // we can use is loading or simply we can use futurebuilder
   // Now I want to get the Loading thing
   //bool isLoading = false;
@@ -56,12 +58,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  // void initState() {
-  //   // TODO: implement initState
+  void initState() {
+    // TODO: implement initState
 
-  //   super.initState();
-  //   getCurrentWeather();
-  // }
+    super.initState();
+    //getCurrentWeather();
+    futureWeather = getCurrentWeather();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,13 +74,17 @@ class _HomePageState extends State<HomePage> {
         title: Text("Weather App"),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                futureWeather = getCurrentWeather();
+              });
+            },
             icon: Icon(Icons.refresh),
           ),
         ],
       ),
       body: FutureBuilder(
-        future: getCurrentWeather(),
+        future: futureWeather,
         // Snapshot gives the current state of the state
         builder: (context, snapshot) {
           print(snapshot.data);
