@@ -186,25 +186,48 @@ class _HomePageState extends State<HomePage> {
                   height: 8,
                 ),
 
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      // we are iterating to show the item, Every Item is being created together at the same time
-                      for (int i = 1; i < 6; i++)
-                        HourlyForeCasteItem(
-                          time: data['list'][i]['dt_txt'].toString(),
-                          tempreture:
-                              data['list'][i]['main']['temp'].toString(),
-                          icon: (data['list'][i]['weather'][0]['main'] ==
-                                      'Clouds' ||
-                                  data['list'][i]['weather'][0]['main'] ==
-                                      'Rain')
+                // SingleChildScrollView(
+                //   scrollDirection: Axis.horizontal,
+                //   child: Row(
+                //     children: [
+                //       // we are iterating to show the item, Every Item is being created together at the same time
+                //       for (int i = 1; i < 6; i++)
+                //         HourlyForeCasteItem(
+                //           time: data['list'][i]['dt_txt'].toString(),
+                //           tempreture:
+                //               data['list'][i]['main']['temp'].toString(),
+                //           icon: (data['list'][i]['weather'][0]['main'] ==
+                //                       'Clouds' ||
+                //                   data['list'][i]['weather'][0]['main'] ==
+                //                       'Rain')
+                //               ? Icons.cloud
+                //               : Icons.sunny,
+                //         ),
+                //     ],
+                //   ),
+                // ),
+
+                // Creating a list view builder
+                Expanded(
+                  child: ListView.builder(
+                      // Makin this orientation horizontal
+                      scrollDirection: Axis.horizontal,
+                      
+                      itemCount: 6,
+                      itemBuilder: (context, index) {
+                        
+                        final hourlyData = data['list'][index];
+                        final hourlyTemp = hourlyData['main']['temp'];
+                        final hourlyTime = hourlyData['dt_txt'];
+                        final hourlySky = hourlyData['weather'][0]['main'];
+                        return HourlyForeCasteItem(
+                          time: hourlyTime.toString(),
+                          tempreture: hourlyTemp.toString(),
+                          icon: (hourlySky == 'Clouds' || hourlySky == 'Rain')
                               ? Icons.cloud
                               : Icons.sunny,
-                        ),
-                    ],
-                  ),
+                        );
+                      }),
                 ),
 
                 const SizedBox(
