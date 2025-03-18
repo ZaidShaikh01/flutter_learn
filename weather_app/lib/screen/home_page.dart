@@ -6,6 +6,7 @@ import 'package:weather_app/screen/additional_info_item.dart';
 import 'package:weather_app/screen/hourly_forecaste_item.dart';
 import 'package:http/http.dart' as http;
 import 'package:weather_app/screen/secrets.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -208,20 +209,22 @@ class _HomePageState extends State<HomePage> {
                 // ),
 
                 // Creating a list view builder
-                Expanded(
+                SizedBox(
+                  width: double.infinity,
+                  height: 120,
                   child: ListView.builder(
                       // Makin this orientation horizontal
                       scrollDirection: Axis.horizontal,
-                      
                       itemCount: 6,
                       itemBuilder: (context, index) {
-                        
                         final hourlyData = data['list'][index];
                         final hourlyTemp = hourlyData['main']['temp'];
                         final hourlyTime = hourlyData['dt_txt'];
+                        final time = DateTime.parse(hourlyTime);
                         final hourlySky = hourlyData['weather'][0]['main'];
                         return HourlyForeCasteItem(
-                          time: hourlyTime.toString(),
+                          // Displaying the time in formate 00:00, 12:00
+                          time: DateFormat.j().format(time),
                           tempreture: hourlyTemp.toString(),
                           icon: (hourlySky == 'Clouds' || hourlySky == 'Rain')
                               ? Icons.cloud
