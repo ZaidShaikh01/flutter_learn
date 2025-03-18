@@ -5,3 +5,7 @@ BackDropFilter --> Merges the first widget with background... like gives a nice 
 
 ClipRect --> Give us properties to use border radius
 Align --> give us properites of alignment ... Can be used to wrap around things
+
+
+I have used FutureBulder to add a loading screen on the page basically it takes two arguent a future funciton
+& one bulider in which it basically builds the widget depending upon the API request  call.. It also has other important methods
