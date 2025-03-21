@@ -40,14 +40,3 @@ final product = [
     'imageUrl': 'assets/images/shoes5.png',
   }
 ];
-
-final cart = [
-  {
-    'id': 3,
-    'title': 'Men\'s Nike Shoes',
-    'price': 44.55,
-    'sizes': 8,
-    'company': 'Nike',
-    'imageUrl': 'assets/images/shoes1.png',
-  },
-];
