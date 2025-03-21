@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shoes_cart/global_variables.dart';
 import 'package:shoes_cart/product_card.dart';
+import 'package:shoes_cart/product_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -106,18 +107,25 @@ class _HomePageState extends State<HomePage> {
                 }),
           ),
 
-
           // This is where we are returning the list of products
           Expanded(
             child: ListView.builder(
               itemCount: product.length,
               itemBuilder: (context, index) {
                 final item = product[index];
-                return ProductCard(
-                  title: item['title'] as String,
-                  price: item['price'] as double,
-                  assetName: item['imageUrl'] as String,
-                  label: index,
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (BuildContext context) {
+                      return ProductPage(product: item);
+                    }));
+                  },
+                  child: ProductCard(
+                    title: item['title'] as String,
+                    price: item['price'] as double,
+                    assetName: item['imageUrl'] as String,
+                    label: index,
+                  ),
                 );
               },
             ),

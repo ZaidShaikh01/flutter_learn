@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 
-class ProductPage extends StatelessWidget {
+class ProductPage extends StatefulWidget {
   final Map<String, Object> product;
 
   const ProductPage({
     super.key,
     required this.product,
   });
+
+  @override
+  State<ProductPage> createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
+  int selectedSize = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +27,13 @@ class ProductPage extends StatelessWidget {
         children: [
           // Showing the above text
           Text(
-            product['title'] as String,
+            widget.product['title'] as String,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
           ),
           const Spacer(),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Image.asset(product['imageUrl'] as String),
+            child: Image.asset(widget.product['imageUrl'] as String),
           ),
           const Spacer(
             flex: 2,
@@ -39,8 +46,60 @@ class ProductPage extends StatelessWidget {
               color: const Color.fromRGBO(245, 247, 249, 1),
             ),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                p
+                Text(
+                  '\$${widget.product['price']}',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  height: 50,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: (widget.product['sizes'] as List<int>).length,
+                      itemBuilder: (context, index) {
+                        final size =
+                            (widget.product['sizes'] as List<int>)[index];
+
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                selectedSize = index;
+                              });
+                            },
+                            child: Chip(
+                              backgroundColor: selectedSize == index
+                                  ? Theme.of(context).colorScheme.primary
+                                  : null,
+                              label: Text(size.toString()),
+                            ),
+                          ),
+                        );
+                      }),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: ElevatedButton.icon(
+                    icon: Icon(
+                      Icons.add_shopping_cart,
+                      color: Colors.black,
+                    ),
+                    label: const Text(
+                      'Add To Cart',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      minimumSize: const Size(double.infinity, 50),
+                    ),
+                  ),
+                ),
               ],
             ),
           )
