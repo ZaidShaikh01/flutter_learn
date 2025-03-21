@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+          useMaterial3: true,
           textTheme: TextTheme(
             bodySmall: TextStyle(
               fontWeight: FontWeight.bold,
@@ -34,7 +35,12 @@ class MyApp extends StatelessWidget {
           ),
 
           // This is cuz we want same design for all the text field we create
-
+          appBarTheme: AppBarTheme(
+            titleTextStyle: TextStyle(
+              fontSize: 20,
+              color: Colors.black,
+            ),
+          ),
           inputDecorationTheme: const InputDecorationTheme(
               hintStyle: TextStyle(
                 fontWeight: FontWeight.bold,
