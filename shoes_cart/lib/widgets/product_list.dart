@@ -107,52 +107,55 @@ class _ProductListState extends State<ProductList> {
                 }),
           ),
 
-          // This is where we are returning the list of products
-          Expanded(
-            child: size.width > 600
-                ? GridView.builder(
-                    itemCount: product.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2),
-                    itemBuilder: (context, index) {
-                      final item = product[index];
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (BuildContext context) {
-                            return ProductPage(product: item);
-                          }));
-                        },
-                        child: ProductCard(
-                          title: item['title'] as String,
-                          price: item['price'] as double,
-                          assetName: item['imageUrl'] as String,
-                          label: index,
-                        ),
-                      );
-                    })
-                : ListView.builder(
-                    itemCount: product.length,
-                    itemBuilder: (context, index) {
-                      final item = product[index];
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (BuildContext context) {
-                            return ProductPage(product: item);
-                          }));
-                        },
-                        child: ProductCard(
-                          title: item['title'] as String,
-                          price: item['price'] as double,
-                          assetName: item['imageUrl'] as String,
-                          label: index,
-                        ),
-                      );
+          Expanded(child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+            if (constraints.maxWidth > 600) {
+              return GridView.builder(
+                  itemCount: product.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2, childAspectRatio: 2),
+                  itemBuilder: (context, index) {
+                    final item = product[index];
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return ProductPage(product: item);
+                        }));
+                      },
+                      child: ProductCard(
+                        title: item['title'] as String,
+                        price: item['price'] as double,
+                        assetName: item['imageUrl'] as String,
+                        label: index,
+                      ),
+                    );
+                  });
+            } else {
+              return ListView.builder(
+                itemCount: product.length,
+                itemBuilder: (context, index) {
+                  final item = product[index];
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return ProductPage(product: item);
+                      }));
                     },
-                  ),
-          )
+                    child: ProductCard(
+                      title: item['title'] as String,
+                      price: item['price'] as double,
+                      assetName: item['imageUrl'] as String,
+                      label: index,
+                    ),
+                  );
+                },
+              );
+            }
+          }))
+
+          // This is where we are returning the list of products
         ],
       ),
     );
