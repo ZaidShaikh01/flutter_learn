@@ -11,7 +11,6 @@ class ProductList extends StatefulWidget {
 }
 
 class _ProductListState extends State<ProductList> {
-
   // Creating a list of filters
   final List<String> filters = const [
     'All',
@@ -30,6 +29,7 @@ class _ProductListState extends State<ProductList> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
 
     const border = OutlineInputBorder(
       borderSide: BorderSide(
@@ -37,7 +37,7 @@ class _ProductListState extends State<ProductList> {
       ),
       borderRadius: BorderRadius.horizontal(left: Radius.circular(50)),
     );
-    
+
     return SafeArea(
       child: Column(
         children: [
@@ -109,26 +109,49 @@ class _ProductListState extends State<ProductList> {
 
           // This is where we are returning the list of products
           Expanded(
-            child: ListView.builder(
-              itemCount: product.length,
-              itemBuilder: (context, index) {
-                final item = product[index];
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return ProductPage(product: item);
-                    }));
-                  },
-                  child: ProductCard(
-                    title: item['title'] as String,
-                    price: item['price'] as double,
-                    assetName: item['imageUrl'] as String,
-                    label: index,
+            child: size.width > 600
+                ? GridView.builder(
+                    itemCount: product.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2),
+                    itemBuilder: (context, index) {
+                      final item = product[index];
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) {
+                            return ProductPage(product: item);
+                          }));
+                        },
+                        child: ProductCard(
+                          title: item['title'] as String,
+                          price: item['price'] as double,
+                          assetName: item['imageUrl'] as String,
+                          label: index,
+                        ),
+                      );
+                    })
+                : ListView.builder(
+                    itemCount: product.length,
+                    itemBuilder: (context, index) {
+                      final item = product[index];
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) {
+                            return ProductPage(product: item);
+                          }));
+                        },
+                        child: ProductCard(
+                          title: item['title'] as String,
+                          price: item['price'] as double,
+                          assetName: item['imageUrl'] as String,
+                          label: index,
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
           )
         ],
       ),
