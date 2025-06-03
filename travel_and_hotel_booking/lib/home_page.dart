@@ -12,6 +12,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0XFFF2F5FA),
+      
       body: SafeArea(
         child: Column(
           children: [
@@ -146,7 +147,7 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 15),
 
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -155,6 +156,7 @@ class _HomePageState extends State<HomePage> {
                         horizontal: 50,
                         vertical: 15,
                       ),
+
                     ),
                     onPressed: () {},
                     child: Text(
@@ -165,8 +167,57 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-
+            SizedBox(height: 15),
             // TODO: This will be body with scrollable
+            Expanded(
+              child: Container(
+
+                decoration: BoxDecoration(
+                  color: Color(0xFFD2DBEA),
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(40),
+                  topRight: Radius.circular(40)),
+                ),
+                width: double.infinity,
+
+                child: Center(
+                  child: Column(
+                    spacing: 20,
+                    //mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 10,),
+                      Image.asset('assets/Island.png'),
+                      Text('Details', style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18
+                      ),),
+                      SizedBox(
+                        width: 330,
+                        child: Text('Thailand, one of Asia’s most popular travel destinations, has been badly git a pandemic-induced tourim slump, with about 200,00 arrivals last ye ...', style: TextStyle(color: Color(0xFF625B71)),),
+                      ),
+                      SizedBox(height: 10,),
+
+                      Material(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Color(0xFF546A83),
+                          elevation: 10,
+                          child: SizedBox(
+                            width: 330,
+                            height: 60,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Image.asset('assets/Home.png'),
+                                Image.asset('assets/Contacts.png')
+                              ],
+                            ),
+                          ))
+
+                ]),
+                )
+              )
+            )
           ],
         ),
       ),
