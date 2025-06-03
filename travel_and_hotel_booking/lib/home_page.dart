@@ -28,6 +28,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   Container(
+
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       boxShadow: [
